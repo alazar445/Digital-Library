@@ -1,0 +1,151 @@
+body{
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc; /* slate-50 */
+  overflow-x: hidden;
+  font-family: Inter, "Noto Sans", sans-serif;
+}
+
+.layout-container {
+  display: flex;
+  height: 100%;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  white-space: nowrap;
+  border-bottom: 1px solid #e7edf4;
+  padding: 0.75rem 2.5rem;
+}
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #0d141c;
+}
+
+.header-text {
+  color: #0d141c;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+/* Form Styles */
+.form-section {
+  padding: 1.25rem 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+
+}
+
+.form-title {
+  color: #0d141c;
+  letter-spacing: -0.01em;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.25;
+  padding: 0 1rem 0.75rem;
+  padding-top: 1.25rem;
+  text-align: center;
+}
+
+.form-group {
+  max-width: 480px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+}
+
+.form-label {
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  flex: 1;
+  font-weight: bold;
+}
+
+.label-text {
+  color: #0d141c;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  padding-bottom: 0.5rem;
+}
+
+.form-input {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex: 1;
+  resize: none;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  color: #0d141c;
+  outline: none;
+  border: 1px solid #cedbe8;
+  background-color: #f8fafc;
+  height: 1.5rem;
+  padding: 0.9375rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.form-input:focus {
+  border-color: #cedbe8;
+  box-shadow: none;
+}
+
+.form-input::placeholder {
+  color: #49739c;
+}
+
+
+.button span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.button {
+    background-color: cornflowerblue;
+    display: flex;
+    color: white;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;  
+    font-weight: bold;
+    overflow: hidden;
+    width: 100%;        
+    padding: 12px 0;  
+    border: none;        
+    font-size: 1rem;  
+    transition: background-color 0.2s ease; 
+    flex: 1;
+}
+
+.button:hover {
+    background-color: #4d7bc6; }
+
+.button:active {
+    background-color: #3a6ab7; }
+
+.button span {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
