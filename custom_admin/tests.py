@@ -155,3 +155,48 @@ class CustomAdminViewsTests(TestCase):
             response,
             '/admin_login/?next=' + reverse('admin_dashboard')
         )
+
+
+from django.test import TestCase
+from django.urls import reverse
+from django.core.files.uploadedfile import SimpleUploadedFile
+from .models import Book
+import datetime
+
+class AddBookViewTests(TestCase):
+    def test_get_add_book_page(self):
+        response = self.client.get(reverse('add_book'))  # use your url name
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<form')  # ensures form is in page
+
+    def test_post_valid_book_creates_book(self):
+        pdf_file = SimpleUploadedFile("test.pdf", b"file_content", content_type="application/pdf")
+        data = {
+            'title': 'Test Book',
+            'author': 'John Doe',
+            'publication_date': '07/08/1999',
+            'isbn': '1234567890123',
+            'genre': 'Fiction',
+            'language': 'English',
+        }
+        response = self.client.post(reverse('add_book'), {**data, 'pdf_file': pdf_file})
+        self.assertEqual(Book.objects.count(), 1)
+        book = Book.objects.first()
+        self.assertEqual(book.title, 'Test Book')
+        
+    
+
+    def test_post_invalid_form_does_not_create_book(self):
+        # Missing required field 'title'
+        data = {
+            'author': 'John Doe',
+            'publication_date': '2025-07-08',
+            'isbn': '1234567890123',
+            'genre': 'Fiction',
+            'language': 'English',
+        }
+        response = self.client.post(reverse('add_book'), data)
+        self.assertEqual(Book.objects.count(), 0)
+        self.assertEqual(response.status_code, 200)  # stays on form page
+
+
