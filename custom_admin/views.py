@@ -31,3 +31,15 @@ def custom_logout(request):
     logout(request)
     return redirect('admin_login')
 
+from .forms import BookForm
+
+def add_book(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_dashboard') 
+        
+    else:
+        form = BookForm()
+    return render(request, 'custom_admin/add_book.html', {'form': form})
