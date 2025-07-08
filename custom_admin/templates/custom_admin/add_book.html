@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Book</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'custom_admin/login.css' %}">
+</head>
+<body>
+    <header class="header">
+      <div class="header-title">
+        <div class="header-icon"></div>
+        <h2 class="header-text">Admin Panel</h2>
+      </div>
+    </header>
+
+    <div class="form-section">
+     <div class="form-title">
+    <h2>Add a New Book</h2>
+     </div>
+    <form class="form-section" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button form-section" type="submit"><span>Save</span></button>
+        <br>
+         <button class="button form-section" onclick="window.location.href='/admin_dashboard'"><span>
+    Back</span>
+        </button>
+    </div>
+    </form>
+   
+
+</body>
+</html>
