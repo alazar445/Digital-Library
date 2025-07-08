@@ -85,6 +85,24 @@ body{
   line-height: 1.5;
   padding-bottom: 0.5rem;
 }
+.form-input-date {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex: 1;
+  resize: none;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  color: #0d141c;
+  outline: none;
+  border: 1px solid #cedbe8;
+  background-color: #f8fafc;
+  height: 1.5rem;
+  padding: 0.9375rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
 
 .form-input {
   display: flex;
@@ -113,12 +131,20 @@ body{
 .form-input::placeholder {
   color: #49739c;
 }
-
+.button2 span  {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 100;
+  align-items: center;
+}
 
 .button span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-weight: 100;
+  align-items: center;
 }
 
 .button {
@@ -137,6 +163,22 @@ body{
     transition: background-color 0.2s ease; 
     flex: 1;
 }
+.button2 {
+    background-color: cornflowerblue;
+    display: flex;
+    color: white;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;  
+    font-weight: bold;
+    overflow: hidden;
+    width: 100%;        
+    padding: 12px 12px;  
+    border: none;        
+    font-size: 1rem;  
+    transition: background-color 0.2s ease; 
+    flex: 1;
+}
 
 .button:hover {
     background-color: #4d7bc6; }
@@ -149,3 +191,4 @@ body{
     width: 100%;
     text-align: center;
 }
+
