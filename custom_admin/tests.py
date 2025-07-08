@@ -198,5 +198,53 @@ class AddBookViewTests(TestCase):
         response = self.client.post(reverse('add_book'), data)
         self.assertEqual(Book.objects.count(), 0)
         self.assertEqual(response.status_code, 200)  # stays on form page
+    
+    from django.test import TestCase
+from django.urls import reverse
+from django.core.files.uploadedfile import SimpleUploadedFile
+from custom_admin.models import Book
+
+class AddBookViewTests(TestCase):
+    def setUp(self):
+        self.url = reverse('add_book')  # or the path you used in urls.py
+        # if you did path('add_book/', views.add_book, name='add_book')
+
+    def test_get_request_returns_form(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<form')
+
+    def test_post_valid_data_creates_book(self):
+        pdf_file = SimpleUploadedFile("test.pdf", b"file_content", content_type="application/pdf")
+        data = {
+            'title': 'Test Book',
+            'author': 'John Doe',
+            'publication_date': '2025-07-08',
+            'isbn': '1234567890123',
+            'genre': 'Fiction',
+            'language': 'English',
+        }
+        response = self.client.post(self.url, data={**data, 'pdf_file': pdf_file}, follow=True)
+        
+        # check that the book exists
+        self.assertEqual(Book.objects.count(), 1)
+        book = Book.objects.first()
+        self.assertEqual(book.title, 'Test Book')
+        self.assertEqual(book.author, 'John Doe')
+        self.assertTrue(book.pdf_file.name.startswith('books/pdfs/'))
+
+    def test_post_invalid_data_does_not_create_book(self):
+        data = {
+            'title': '',  # invalid: title required
+            'author': 'John Doe',
+            'publication_date': '2025-07-08',
+            'isbn': '1234567890123',
+            'genre': 'Fiction',
+            'language': 'English',
+        }
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, 200)  # stays on form page
+        self.assertEqual(Book.objects.count(), 0)
+
 
 
