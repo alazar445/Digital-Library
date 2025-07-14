@@ -4,6 +4,62 @@
 <head>
     <title>Add Book</title>
     <link rel="stylesheet" type="text/css" href="{% static 'custom_admin/login.css' %}">
+    <style>
+      .card {
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        max-width: 480px;
+        margin: 2rem auto;
+        padding: 2.5rem 2rem 2rem 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding-right: 4rem;
+      }
+      .form-title h2 {
+        margin-bottom: 0.5rem;
+      }
+      .form-title h4 {
+        margin-bottom: 0.2rem;
+      }
+      .form-errors {
+        color: #d32f2f;
+        background: #fff0f0;
+        border: 1px solid #f8d7da;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+      }
+      .form-section form {
+        width: 100%;
+      }
+      .form-section button {
+        margin-top: 1rem;
+      }
+      .form-section .button + .button {
+        margin-top: 0.5rem;
+      }
+    </style>
+    <style>
+      .button-row {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.5rem;
+        width: auto;
+        margin-top: 1rem;
+        margin-right: -2rem;
+      }
+      .small-btn {
+        width: auto;
+        min-width: 80px;
+        padding: 6px 18px;
+        font-size: 0.95rem;
+        border-radius: 4px;
+      }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -14,20 +70,24 @@
     </header>
 
     <div class="form-section">
-     <div class="form-title">
-    <h2>Add a New Book</h2>
-     </div>
-    <form class="form-section" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="button form-section" type="submit"><span>Save</span></button>
-        <br>
-         <button class="button form-section" onclick="window.location.href='/admin_dashboard'"><span>
-    Back</span>
-        </button>
+      <div class="card">
+        <div class="form-title">
+          <h4>Add Book</h4>
+        </div>
+        {% if form.errors %}
+          <div class="form-errors">
+            {{ form.errors }}
+          </div>
+        {% endif %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="button-row">
+              <button class="button small-btn" type="submit"><span>Save</span></button>
+              <button class="button small-btn" type="button" onclick="window.location.href='/admin_dashboard'"><span>Back</span></button>
+            </div>
+        </form>
+      </div>
     </div>
-    </form>
-   
-
 </body>
 </html>

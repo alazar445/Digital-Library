@@ -7,8 +7,10 @@
         <h2 class="header-text">Admin Panel</h2>
       </div>
       <div>
-        <button class="button" onclick="window.location.href='/admin_login'">
+        <a href="{% url 'logout' %}">
+        <button class="button">
           <span>Logout</span>
+        </a>
       </div>
     </header>
     <div>

@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
-@login_required(login_url='/admin_login/')
+@login_required(login_url='admin_login')
 def admin_dashboard(request):
     return render(request, 'custom_admin/admin_panel.html')
 
@@ -18,6 +18,7 @@ def custom_admin_login(request):
         if user is not None:
             if user.is_staff:  # checks if the user is staff
                 login(request, user)
+                print(request.user.is_authenticated)
                 return redirect('admin_dashboard')
             else:
                 messages.error(request, "You are not authorized to access this page.")
@@ -29,6 +30,7 @@ def custom_admin_login(request):
 
 def custom_logout(request):
     logout(request)
+    print(request.user.is_authenticated)
     return redirect('admin_login')
 
 from .forms import BookForm

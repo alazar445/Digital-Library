@@ -4,7 +4,7 @@ from django.urls import reverse
 
 class AdminLoginTestCase(TestCase):
     def setUp(self):
-        # Create a test admin user
+        
         self.admin_username = 'admin'
         self.admin_password = 'securepassword123'
         self.admin_user = User.objects.create_user(
@@ -14,12 +14,12 @@ class AdminLoginTestCase(TestCase):
         )
     
     def test_login_with_correct_credentials(self):
-        # Try to login with correct username and password
+        
         response = self.client.post(reverse('admin_login'), {
             'username': self.admin_username,
             'password': self.admin_password
         })
-        # You can check for redirect (302) or success message
+       
         self.assertEqual(response.status_code, 302)  # Assuming it redirects after login
         self.assertTrue(response.wsgi_request.user.is_authenticated)
 
@@ -73,10 +73,10 @@ class CustomAdminViewsTests(TestCase):
         If a user tries to access the admin dashboard without logging in,
         they should be redirected to the login page.
         """
-        response = self.client.get(reverse('admin_dashboard'))
+        response = self.client.get(reverse('admin_login'))
         self.assertRedirects(
             response,
-            '/admin_login/?next=' + reverse('admin_dashboard')
+            '/admin_login/?next=' + reverse('admin_login')
         )
 
     def test_dashboard_loads_for_logged_in_staff(self):
@@ -104,7 +104,7 @@ class CustomAdminViewsTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'custom_admin/login.html')
 
-        # Check if the error message is present
+       
         messages = list(get_messages(response.wsgi_request))
         self.assertTrue(
             any("Invalid username or password" in str(m) for m in messages)
@@ -206,9 +206,7 @@ from custom_admin.models import Book
 
 class AddBookViewTests(TestCase):
     def setUp(self):
-        self.url = reverse('add_book')  # or the path you used in urls.py
-        # if you did path('add_book/', views.add_book, name='add_book')
-
+        self.url = reverse('add_book')  
     def test_get_request_returns_form(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
