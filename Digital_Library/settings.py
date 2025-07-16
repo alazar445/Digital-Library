@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = 'admin_login/'
+LOGIN_REDIRECT_URL = 'admin_dashboard/'
+
+
 
 # Application definition
 

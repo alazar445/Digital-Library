@@ -8,7 +8,10 @@ class BookForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-input'}),
             'author': forms.TextInput(attrs={'class': 'form-input'}),
-            'publication_date': forms.DateInput(attrs={'class': 'form-input', 'form-input': 'form-input'}),
+            'publication_date': forms.DateInput(
+                attrs={'class': 'form-input', 'placeholder': 'YYYY-MM-DD', 'type': 'date'},
+                format='%Y-%m-%d',
+            ),
             'isbn': forms.TextInput(attrs={'class': 'form-input'}),
             'genre': forms.TextInput(attrs={'class': 'form-input'}),
             'language': forms.TextInput(attrs={'class': 'form-input'}),
