@@ -1,0 +1,90 @@
+.form-section {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.04);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  margin: 4rem auto 0 auto;
+  max-width: 420px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1a202c;
+  text-align: center;
+}
+
+.form-style {
+  width: 100%;
+  margin-bottom: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+
+.form-label {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.04rem;
+  color: #374151;
+}
+
+.form-input {
+  padding: 0.6rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+  margin-bottom: 0.05rem;
+  background: #f8fafc;
+  transition: border 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  border: 1.5px solid #4d7bc6;
+  outline: none;
+}
+
+.button {
+  margin-top: 0.4rem;
+  width: 100%;
+  padding: 0.85rem 0;
+  border-radius: 6px;
+  font-size: 1.12rem;
+  font-weight: 600;
+  background: #4d7bc6;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 8px rgba(77,123,198,0.08);
+  display: block;
+  box-sizing: border-box;
+}
+
+.button:hover {
+  background: #355fa8;
+}
+
+/* Style for error/message list */
+.form-section ul {
+  width: 100%;
+  margin: 0 0 1rem 0;
+  padding: 0.5rem 1rem;
+  background: #ffeaea;
+  border: 1px solid #ffbdbd;
+  border-radius: 6px;
+  color: #b91c1c;
+  list-style: none;
+  font-size: 0.97rem;
+  box-sizing: border-box;
+} 
