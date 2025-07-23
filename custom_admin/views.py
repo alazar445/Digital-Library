@@ -71,3 +71,9 @@ def add_book(request):
     return render(request, 'custom_admin/add_book.html', {'form': form})
 
 
+@admin_required
+def display_books(request):
+    search_query = request.GET.get('q', '').strip()
+    books = Book.objects.all()
+    
+    return render(request, 'custom_admin/display_books.html', {'books': books, 'search_query': search_query})
