@@ -127,9 +127,14 @@ table.modern-table a {
 }
 </style>
 <div class="book-list-section">
-    <h2>Books</h2>
+    <h2>All Books</h2>
     <div class="book-list-flex">
-        
+        <form class="search-bar" method="get" action="">
+            <input type="text" name="q" placeholder="Search books..." value="{{ search_query|default:'' }}" />
+            <button type="submit" aria-label="Search">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="white" stroke-width="2" fill="none"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+        </form>
         <div class="table-scroll-container">
             <table class="modern-table">
                 <thead>
