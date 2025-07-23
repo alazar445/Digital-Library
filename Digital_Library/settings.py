@@ -27,8 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_URL = 'admin_login/'
-LOGIN_REDIRECT_URL = 'admin_dashboard/'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = 'student_dashboard/'
 
 
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'custom_admin',
     'home',  
+    'student_dashboard',
 ]
 STATIC_URL = '/static/'
 
