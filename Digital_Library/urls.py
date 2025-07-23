@@ -19,7 +19,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('custom_admin.urls')),  # Include URLs from the admin_panel app
+    path('', include('home.urls')),
+    path('custom_admin/', include('custom_admin.urls')),
 ]
 
 from django.conf import settings

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Library | Home</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #60a5fa;
+            --bg: #f4f6fa;
+            --white: #fff;
+            --gray: #374151;
+            --gray-light: #e5e7eb;
+            --radius: 10px;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--bg);
+            margin: 0;
+            padding: 0;
+            color: var(--gray);
+        }
+        /* Header */
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 8px rgba(37,99,235,0.07);
+            padding: 0;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            padding: 0 32px;
+        }
+        .logo-nav {
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            width: 44px;
+            height: 44px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+        }
+        .logo svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--white);
+        }
+        .site-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+        .nav {
+            display: flex;
+            gap: 24px;
+            margin-left: 32px;
+        }
+        .nav a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 1.08rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav a:hover {
+            color: var(--primary);
+        }
+        .auth-links {
+            display: flex;
+            gap: 12px;
+        }
+        .auth-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius);
+            padding: 8px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .auth-btn.secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 1.5px solid var(--primary);
+        }
+        .auth-btn:hover {
+            background: var(--primary-light);
+            color: var(--white);
+        }
+        /* Hero */
+        .hero {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            padding: 70px 0 60px 0;
+            text-align: center;
+        }
+        .hero-title {
+            font-size: 2.7rem;
+            font-weight: 800;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+        }
+        .hero-desc {
+            font-size: 1.18rem;
+            margin-bottom: 36px;
+            color: #e0e7ef;
+        }
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+        }
+        .hero-btn {
+            background: var(--white);
+            color: var(--primary);
+            border: none;
+            border-radius: var(--radius);
+            padding: 14px 36px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            transition: background 0.2s, color 0.2s;
+        }
+        .hero-btn.primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .hero-btn:hover {
+            background: var(--primary-light);
+            color: var(--white);
+        }
+        /* About */
+        .about-section {
+            max-width: 900px;
+            margin: 48px auto 0 auto;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+            padding: 38px 32px 28px 32px;
+            text-align: center;
+        }
+        .about-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        .about-desc {
+            font-size: 1.08rem;
+            color: var(--gray);
+        }
+        /* Benefits */
+        .benefits-section {
+            max-width: 1100px;
+            margin: 48px auto 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+        }
+        .benefit-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+            padding: 32px 24px 28px 24px;
+            flex: 1 1 180px;
+            min-width: 160px;
+            max-width: 220px;
+            text-align: center;
+        }
+        .benefit-icon {
+            margin-bottom: 14px;
+        }
+        .benefit-title {
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        .benefit-desc {
+            font-size: 0.98rem;
+            color: var(--gray);
+        }
+        /* Contact Preview */
+        .contact-preview {
+            max-width: 900px;
+            margin: 48px auto 0 auto;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+            padding: 32px 32px 28px 32px;
+            text-align: center;
+        }
+        .contact-text {
+            font-size: 1.08rem;
+            margin-bottom: 12px;
+        }
+        .contact-link {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: var(--radius);
+            padding: 10px 28px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        .contact-link:hover {
+            background: var(--primary-light);
+        }
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 32px 0 18px 0;
+            margin-top: 48px;
+        }
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 32px;
+            padding: 0 32px;
+        }
+        .footer-section {
+            flex: 1 1 200px;
+            min-width: 180px;
+        }
+        .footer-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .footer-links, .footer-contact {
+            font-size: 0.98rem;
+            color: #e0e7ef;
+            margin-bottom: 8px;
+        }
+        .footer-links a {
+            color: #e0e7ef;
+            text-decoration: none;
+            margin-right: 16px;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        .footer-copyright {
+            text-align: center;
+            color: #e0e7ef;
+            font-size: 0.97rem;
+            margin-top: 18px;
+        }
+        @media (max-width: 900px) {
+            .header-content, .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0 12px;
+            }
+            .benefits-section {
+                gap: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo-nav">
+                <div class="logo">
+                    <svg viewBox="0 0 32 32"><rect x="6" y="8" width="20" height="16" rx="3" fill="#fff" stroke="#2563eb" stroke-width="2"/><rect x="10" y="12" width="12" height="8" rx="2" fill="#2563eb"/></svg>
+                </div>
+                <span class="site-title">Digital Library</span>
+                <nav class="nav">
+                    <a href="/">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+            </div>
+            <div class="auth-links">
+                <a class="auth-btn secondary" href="/register/">Register</a>
+                <a class="auth-btn" href="/custom_admin/login/">Login</a>
+            </div>
+        </div>
+    </div>
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-title">Read Anytime, Learn Anywhere</div>
+        <div class="hero-desc">
+            Access a world of knowledge at your fingertips. Our digital library provides students and learners with thousands of books and resources to inspire and educate.
+        </div>
+        <div class="hero-btns">
+            <a class="hero-btn primary" href="/custom_admin/display_books/">Explore Books</a>
+            <a class="hero-btn" href="/register/">Register Now</a>
+        </div>
+    </div>
+    <!-- About -->
+    <div class="about-section" id="about">
+        <div class="about-title">About Digital Library</div>
+        <div class="about-desc">
+            The Digital Library is designed to support education and research by offering easy access to digital content. Whether you're a student, teacher, or lifelong learner, our platform makes knowledge available to all.
+        </div>
+    </div>
+    <!-- Benefits -->
+    <div class="benefits-section">
+        <div class="benefit-card">
+            <div class="benefit-icon">
+                <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6Z" stroke="#2563eb" stroke-width="2"/><path d="M8 10h8M8 14h5" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div class="benefit-title">Free Access</div>
+            <div class="benefit-desc">Enjoy unlimited access to our digital library at no cost.</div>
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">
+                <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="5" stroke="#2563eb" stroke-width="2"/><path d="M7 12h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div class="benefit-title">Instant Downloads</div>
+            <div class="benefit-desc">Download books and resources instantly for offline reading.</div>
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">
+                <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#2563eb" stroke-width="2"/><path d="M15.5 15.5L19 19" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="#2563eb" stroke-width="2"/></svg>
+            </div>
+            <div class="benefit-title">Easy Search</div>
+            <div class="benefit-desc">Find what you need quickly with our powerful search tools.</div>
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">
+                <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#2563eb" stroke-width="2"/><path d="M8 12h8M12 8v8" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div class="benefit-title">Trusted Content</div>
+            <div class="benefit-desc">Access high-quality, curated, and reliable educational materials.</div>
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">
+                <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="5" stroke="#2563eb" stroke-width="2"/><path d="M7 12h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div class="benefit-title">Mobile Friendly</div>
+            <div class="benefit-desc">Enjoy a seamless experience on any device, anywhere.</div>
+        </div>
+    </div>
+    <!-- Contact Preview -->
+    <div class="contact-preview" id="contact">
+        <div class="contact-text">Need help? Have a question? Reach out to us anytime.</div>
+        <a class="contact-link" href="/contact/">Contact Us</a>
+    </div>
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-title">Contact Information</div>
+                <div class="footer-contact">Email: info@digitallibrary.com</div>
+                <div class="footer-contact">Phone: +1 234 567 8900</div>
+                <div class="footer-contact">Address: 123 Library Lane, Booktown, USA</div>
+            </div>
+            <div class="footer-section">
+                <div class="footer-title">Quick Links</div>
+                <div class="footer-links">
+                    <a href="/terms/">Terms</a>
+                    <a href="/privacy/">Privacy</a>
+                    <a href="/faq/">FAQ</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            &copy; {{ year|default:2024 }} Digital Library. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
