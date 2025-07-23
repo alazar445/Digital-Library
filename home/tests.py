@@ -20,10 +20,10 @@ class RegistrationTests(TestCase):
 
     def test_valid_registration_creates_user_and_profile(self):
         response = self.client.post(self.register_url, self.valid_data)
+        self.assertRedirects(response, reverse('login'))
         self.assertTrue(User.objects.filter(username='testuser').exists())
         user = User.objects.get(username='testuser')
         self.assertTrue(UserProfile.objects.filter(user=user, gender='male', education_status='student').exists())
-        self.assertContains(response, 'Registration successful')
 
     def test_duplicate_username(self):
         User.objects.create_user(username='testuser', email='other@example.com', password='pass')
@@ -42,6 +42,7 @@ class RegistrationTests(TestCase):
         data['confirm_password'] = 'differentpass'
         response = self.client.post(self.register_url, data)
         self.assertContains(response, 'Passwords do not match')
+
 class RegistrationIntegrationTests(TestCase):
     def setUp(self):
         self.register_url = reverse('register')
@@ -68,9 +69,8 @@ class RegistrationIntegrationTests(TestCase):
         self.assertContains(response, 'Education Status')
 
     def test_successful_registration_flow(self):
-        response = self.client.post(self.register_url, self.valid_data, follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Registration successful')
+        response = self.client.post(self.register_url, self.valid_data, follow=False)
+        self.assertRedirects(response, reverse('login'))
         self.assertTrue(User.objects.filter(username='integrationuser').exists())
         user = User.objects.get(username='integrationuser')
         self.assertTrue(UserProfile.objects.filter(user=user, gender='female', education_status='teacher').exists())
