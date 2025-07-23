@@ -224,3 +224,41 @@ class CustomAdminTests(TestCase):
         response = self.client.get(reverse('display_books'), {'q': 'Nonexistent'})
         self.assertContains(response, 'No books found.')
 
+    # ------------------- INTEGRATION TESTS FOR SEARCH IN DISPLAY BOOKS VIEW -------------------
+    def test_search_books_integration_by_title(self):
+        self.client.login(username='admin', password='adminpass')
+        Book.objects.create(title='Omega', author='A', publication_date='2024-01-01', isbn='1515151515151', genre='Epic', language='EN')
+        Book.objects.create(title='Sigma', author='B', publication_date='2024-01-02', isbn='1616161616161', genre='Tragedy', language='FR')
+        response = self.client.get(reverse('display_books'), {'q': 'Omega'})
+        self.assertContains(response, 'Omega')
+        self.assertNotContains(response, 'Sigma')
+
+    def test_search_books_integration_by_author(self):
+        self.client.login(username='admin', password='adminpass')
+        Book.objects.create(title='Pi', author='Newton', publication_date='2024-01-01', isbn='1717171717171', genre='Science', language='EN')
+        Book.objects.create(title='Tau', author='Einstein', publication_date='2024-01-02', isbn='1818181818181', genre='Physics', language='FR')
+        response = self.client.get(reverse('display_books'), {'q': 'Newton'})
+        self.assertContains(response, 'Pi')
+        self.assertNotContains(response, 'Tau')
+
+    def test_search_books_integration_by_genre(self):
+        self.client.login(username='admin', password='adminpass')
+        Book.objects.create(title='Mu', author='C', publication_date='2024-01-01', isbn='1919191919191', genre='Comedy', language='EN')
+        Book.objects.create(title='Nu', author='D', publication_date='2024-01-02', isbn='2020202020202', genre='Drama', language='FR')
+        response = self.client.get(reverse('display_books'), {'q': 'Comedy'})
+        self.assertContains(response, 'Mu')
+        self.assertNotContains(response, 'Nu')
+
+    def test_search_books_integration_by_language(self):
+        self.client.login(username='admin', password='adminpass')
+        Book.objects.create(title='Xi', author='E', publication_date='2024-01-01', isbn='2121212121212', genre='Satire', language='EN')
+        Book.objects.create(title='Omicron', author='F', publication_date='2024-01-02', isbn='2222222222222', genre='Myth', language='FR')
+        response = self.client.get(reverse('display_books'), {'q': 'FR'})
+        self.assertContains(response, 'Omicron')
+        self.assertNotContains(response, 'Xi')
+
+    def test_search_books_integration_no_match(self):
+        self.client.login(username='admin', password='adminpass')
+        Book.objects.create(title='Rho', author='G', publication_date='2024-01-01', isbn='2323232323232', genre='Essay', language='EN')
+        response = self.client.get(reverse('display_books'), {'q': 'Nonexistent'})
+        self.assertContains(response, 'No books found.')
