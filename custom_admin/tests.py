@@ -184,3 +184,43 @@ class CustomAdminTests(TestCase):
         self.client.login(username='admin', password='adminpass')
         response = self.client.get(reverse('display_books'))
         self.assertContains(response, 'No books found.')
+
+    # ------------------- UNIT TESTS FOR SEARCH IN DISPLAY BOOKS VIEW -------------------
+    def test_search_books_by_title(self):
+        self.client.login(username='admin', password='adminpass')
+        Book.objects.create(title='Alpha', author='A', publication_date='2024-01-01', isbn='5555555555555', genre='Fiction', language='EN')
+        Book.objects.create(title='Beta', author='B', publication_date='2024-01-02', isbn='6666666666666', genre='Nonfiction', language='FR')
+        response = self.client.get(reverse('display_books'), {'q': 'Alpha'})
+        self.assertContains(response, 'Alpha')
+        self.assertNotContains(response, 'Beta')
+
+    def test_search_books_by_author(self):
+        self.client.login(username='admin', password='adminpass')
+        Book.objects.create(title='Gamma', author='Smith', publication_date='2024-01-01', isbn='7777777777777', genre='Sci-Fi', language='EN')
+        Book.objects.create(title='Delta', author='Jones', publication_date='2024-01-02', isbn='8888888888888', genre='Drama', language='FR')
+        response = self.client.get(reverse('display_books'), {'q': 'Smith'})
+        self.assertContains(response, 'Gamma')
+        self.assertNotContains(response, 'Delta')
+
+    def test_search_books_by_genre(self):
+        self.client.login(username='admin', password='adminpass')
+        Book.objects.create(title='Epsilon', author='X', publication_date='2024-01-01', isbn='9999999999999', genre='Adventure', language='EN')
+        Book.objects.create(title='Zeta', author='Y', publication_date='2024-01-02', isbn='1010101010101', genre='Mystery', language='FR')
+        response = self.client.get(reverse('display_books'), {'q': 'Adventure'})
+        self.assertContains(response, 'Epsilon')
+        self.assertNotContains(response, 'Zeta')
+
+    def test_search_books_by_language(self):
+        self.client.login(username='admin', password='adminpass')
+        Book.objects.create(title='Eta', author='M', publication_date='2024-01-01', isbn='1212121212121', genre='Poetry', language='EN')
+        Book.objects.create(title='Theta', author='N', publication_date='2024-01-02', isbn='1313131313131', genre='History', language='FR')
+        response = self.client.get(reverse('display_books'), {'q': 'FR'})
+        self.assertContains(response, 'Theta')
+        self.assertNotContains(response, 'Eta')
+
+    def test_search_books_no_match(self):
+        self.client.login(username='admin', password='adminpass')
+        Book.objects.create(title='Iota', author='O', publication_date='2024-01-01', isbn='1414141414141', genre='Biography', language='EN')
+        response = self.client.get(reverse('display_books'), {'q': 'Nonexistent'})
+        self.assertContains(response, 'No books found.')
+
