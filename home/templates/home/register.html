@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Digital Library</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f4f6fa;
+            margin: 0;
+            padding: 0;
+        }
+        .register-container {
+            max-width: 420px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(37,99,235,0.08);
+            padding: 38px 32px 32px 32px;
+        }
+        .register-title {
+            font-size: 2rem;
+            color: #2563eb;
+            font-weight: 700;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #374151;
+            font-weight: 500;
+        }
+        .form-input, select, input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #f9fafb;
+            margin-bottom: 2px;
+            transition: border 0.2s;
+            box-sizing: border-box;
+            display: block;
+        }
+        select.form-input, select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: #f9fafb url('data:image/svg+xml;utf8,<svg fill="%232563eb" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 12px center/18px 18px;
+        }
+        .form-input:focus {
+            border-color: #2563eb;
+            outline: none;
+        }
+        .form-error {
+            color: #b91c1c;
+            font-size: 0.97rem;
+            margin-top: 2px;
+        }
+        .register-btn {
+            width: 100%;
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+        .register-btn:hover {
+            background: #1d4ed8;
+        }
+        .success-message {
+            background: #e0f2fe;
+            color: #2563eb;
+            border: 1.5px solid #2563eb;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 18px;
+            font-size: 1.1rem;
+        }
+        @media (max-width: 600px) {
+            .register-container {
+                padding: 18px 4px 18px 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-title">Create Your Account</div>
+        {% if success %}
+            <div class="success-message">
+                Registration successful! You can now <a href="/custom_admin/login/" style="color:#2563eb;text-decoration:underline;">login</a>.
+            </div>
+        {% endif %}
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="form-error">{{ field.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="register-btn">Register</button>
+        </form>
+    </div>
+</body>
+</html> 
