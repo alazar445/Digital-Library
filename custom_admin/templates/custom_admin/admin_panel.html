@@ -1,4 +1,4 @@
-{%load static%}
+{% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'custom_admin/login.css' %}">
 <div class="layout-container">
     <header class="header">
@@ -10,9 +10,11 @@
         <a href="{% url 'logout' %}">
         <button class="button">
           <span>Logout</span>
+        </button>
         </a>
       </div>
     </header>
+    {% block content %}
     <div>
         <h2>Welcome {{ request.user.username }}</h2>
         <p>Welcome to the Admin Panel. Here you can manage books in the library.</p>
@@ -22,6 +24,10 @@
         <button class="button" onclick="window.location.href='/add_book'">
    Add Book
 </button>
+        <button class="button" onclick="window.location.href='/display_books'">
+  Display Books
+</button>
     </div>
     </div>
+    {% endblock %}
 </div>

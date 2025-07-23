@@ -6,6 +6,8 @@ from django.contrib.auth import logout
 
 from django.http import HttpResponseForbidden
 from functools import wraps
+from .models import Book
+from django.db import models
 
 def admin_required(view_func):
     @wraps(view_func)
@@ -67,3 +69,5 @@ def add_book(request):
     else:
         form = BookForm()
     return render(request, 'custom_admin/add_book.html', {'form': form})
+
+
