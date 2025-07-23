@@ -42,6 +42,7 @@ class RegistrationTests(TestCase):
         data['confirm_password'] = 'differentpass'
         response = self.client.post(self.register_url, data)
         self.assertContains(response, 'Passwords do not match')
+
 class RegistrationIntegrationTests(TestCase):
     def setUp(self):
         self.register_url = reverse('register')

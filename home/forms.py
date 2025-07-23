@@ -29,3 +29,7 @@ class RegistrationForm(forms.Form):
         if password and confirm_password and password != confirm_password:
             self.add_error('confirm_password', 'Passwords do not match.')
         return cleaned_data 
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=50, label='Username', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-input'})) 
