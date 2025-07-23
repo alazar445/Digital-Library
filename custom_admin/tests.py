@@ -153,3 +153,34 @@ class CustomAdminTests(TestCase):
         self.assertContains(response, 'Author 2')
         self.assertContains(response, 'Genre1')
         self.assertContains(response, 'Genre2')
+
+    # ------------------- INTEGRATION TESTS FOR DISPLAY BOOKS VIEW -------------------
+    def test_display_books_integration_admin_access(self):
+        self.client.login(username='admin', password='adminpass')
+        response = self.client.get(reverse('display_books'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'custom_admin/display_books.html')
+        self.assertContains(response, 'Books')
+
+    def test_display_books_integration_shows_multiple_books(self):
+        self.client.login(username='admin', password='adminpass')
+        Book.objects.create(
+            title='Integration Book 1', author='Int Author 1', publication_date='2024-01-01',
+            isbn='3333333333333', genre='IntGenre1', language='EN'
+        )
+        Book.objects.create(
+            title='Integration Book 2', author='Int Author 2', publication_date='2024-01-02',
+            isbn='4444444444444', genre='IntGenre2', language='FR'
+        )
+        response = self.client.get(reverse('display_books'))
+        self.assertContains(response, 'Integration Book 1')
+        self.assertContains(response, 'Integration Book 2')
+        self.assertContains(response, 'Int Author 1')
+        self.assertContains(response, 'Int Author 2')
+        self.assertContains(response, 'IntGenre1')
+        self.assertContains(response, 'IntGenre2')
+
+    def test_display_books_integration_no_books(self):
+        self.client.login(username='admin', password='adminpass')
+        response = self.client.get(reverse('display_books'))
+        self.assertContains(response, 'No books found.')
