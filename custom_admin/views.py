@@ -71,3 +71,15 @@ def add_book(request):
     return render(request, 'custom_admin/add_book.html', {'form': form})
 
 
+@admin_required
+def display_books(request):
+    search_query = request.GET.get('q', '').strip()
+    books = Book.objects.all()
+    if search_query:
+        books = books.filter(
+            models.Q(title__icontains=search_query) |
+            models.Q(author__icontains=search_query) |
+            models.Q(genre__icontains=search_query) |
+            models.Q(language__icontains=search_query)
+        )
+    return render(request, 'custom_admin/display_books.html', {'books': books, 'search_query': search_query})
