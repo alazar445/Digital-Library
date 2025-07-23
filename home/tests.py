@@ -112,4 +112,23 @@ class LoginTests(TestCase):
         response = self.client.post(self.login_url, {'username': 'nouser', 'password': 'somepass'})
         self.assertContains(response, 'Invalid username or password')
 
+class LoginIntegrationTests(TestCase):
+    def setUp(self):
+        self.login_url = reverse('login')
+        self.dashboard_url = reverse('student_dashboard')
+        self.user = User.objects.create_user(username='integrationlogin', email='integrationlogin@example.com', password='integrationpass')
+
+    
+    def test_successful_login_flow(self):
+        response = self.client.post(self.login_url, {'username': 'integrationlogin', 'password': 'integrationpass'})
+        self.assertRedirects(response, self.dashboard_url)
+
+    def test_invalid_login_wrong_password_integration(self):
+        response = self.client.post(self.login_url, {'username': 'integrationlogin', 'password': 'wrongpass'})
+        self.assertContains(response, 'Invalid username or password')
+
+    def test_invalid_login_nonexistent_user_integration(self):
+        response = self.client.post(self.login_url, {'username': 'nouser', 'password': 'somepass'})
+        self.assertContains(response, 'Invalid username or password')
+
     
