@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('custom_admin/', include('custom_admin.urls')),
+    path('student_dashboard/', include('student_dashboard.urls')),
 ]
 
 from django.conf import settings

@@ -3,7 +3,7 @@ from .forms import RegistrationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from .models import UserProfile
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from .forms import RegistrationForm, LoginForm
 
 # Create your views here.
@@ -62,3 +62,7 @@ def login_view(request):
     else:
         form = LoginForm()
     return render(request, 'home/login.html', {'form': form, 'error': error})
+
+def logout_view(request):
+    auth_logout(request)
+    return redirect('login')

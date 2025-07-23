@@ -92,3 +92,24 @@ class RegistrationIntegrationTests(TestCase):
         data['confirm_password'] = 'notthesame'
         response = self.client.post(self.register_url, data)
         self.assertContains(response, 'Passwords do not match')
+
+class LoginTests(TestCase):
+    def setUp(self):
+        self.login_url = reverse('login')
+        self.logout_url = reverse('logout')
+        self.dashboard_url = reverse('student_dashboard')
+        self.user = User.objects.create_user(username='loginuser', email='login@example.com', password='loginpass123')
+
+    def test_valid_login(self):
+        response = self.client.post(self.login_url, {'username': 'loginuser', 'password': 'loginpass123'})
+        self.assertRedirects(response, self.dashboard_url)
+
+    def test_invalid_login_wrong_password(self):
+        response = self.client.post(self.login_url, {'username': 'loginuser', 'password': 'wrongpass'})
+        self.assertContains(response, 'Invalid username or password')
+
+    def test_invalid_login_nonexistent_user(self):
+        response = self.client.post(self.login_url, {'username': 'nouser', 'password': 'somepass'})
+        self.assertContains(response, 'Invalid username or password')
+
+    
