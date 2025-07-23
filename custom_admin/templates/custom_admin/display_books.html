@@ -1,0 +1,174 @@
+{% extends 'custom_admin/admin_panel.html' %}
+{% block content %}
+<style>
+.book-list-section {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    padding: 32px 24px;
+}
+.book-list-section h2 {
+    margin-bottom: 24px;
+    font-size: 2rem;
+    color: #2d3748;
+    text-align: center;
+}
+.book-list-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+}
+.search-bar {
+    display: flex;
+    width: 100%;
+    margin-bottom: 22px;
+}
+.search-bar input[type="text"] {
+    flex: 1 1 auto;
+    padding: 12px 18px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px 0 0 8px;
+    font-size: 1rem;
+    outline: none;
+    background: #f9fafb;
+    transition: border 0.2s;
+    border-right: none;
+}
+.search-bar input[type="text"]:focus {
+    border-color: #2563eb;
+}
+.search-bar button {
+    width: 48px;
+    background: #2563eb;
+    border: 1px solid #2563eb;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    padding: 0;
+}
+.search-bar button:hover {
+    background: #1d4ed8;
+}
+.search-bar svg {
+    width: 22px;
+    height: 22px;
+    fill: #fff;
+}
+.table-scroll-container {
+    max-height: 420px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border-radius: 8px;
+    background: #fafbfc;
+    width: 100%;
+}
+table.modern-table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+    font-size: 1rem;
+    background: #fafbfc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+table.modern-table th, table.modern-table td {
+    padding: 14px 12px;
+    text-align: left;
+}
+table.modern-table th {
+    background: #f3f4f6;
+    color: #374151;
+    font-weight: 600;
+    border-bottom: 2px solid #e5e7eb;
+}
+table.modern-table tr:nth-child(even) {
+    background: #f9fafb;
+}
+table.modern-table tr:hover {
+    background: #e0e7ef;
+    transition: background 0.2s;
+}
+table.modern-table a {
+    color: #2563eb;
+    text-decoration: underline;
+    font-weight: 500;
+}
+@media (max-width: 700px) {
+    .book-list-section {
+        padding: 12px 2px;
+    }
+    .table-scroll-container {
+        max-height: 320px;
+    }
+    table.modern-table th, table.modern-table td {
+        padding: 8px 4px;
+        font-size: 0.95rem;
+    }
+    table.modern-table {
+        min-width: 500px;
+    }
+    .search-bar input[type="text"] {
+        font-size: 0.95rem;
+        padding: 8px 8px;
+    }
+    .search-bar button {
+        width: 38px;
+    }
+    .search-bar svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+</style>
+<div class="book-list-section">
+    <h2>Books</h2>
+    <div class="book-list-flex">
+        <form class="search-bar" method="get" action="">
+            <input type="text" name="q" placeholder="Search books..." value="{{ search_query|default:'' }}" />
+            <button type="submit" aria-label="Search">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="white" stroke-width="2" fill="none"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+        </form>
+        <div class="table-scroll-container">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Publication Date</th>
+                        <th>Genre</th>
+                        <th>Language</th>
+                        <th>PDF</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.publication_date }}</td>
+                        <td>{{ book.genre }}</td>
+                        <td>{{ book.language }}</td>
+                        <td>
+                            {% if book.pdf_file %}
+                                <a href="{{ book.pdf_file.url }}" target="_blank">View PDF</a>
+                            {% else %}
+                                <span style="color:#b91c1c;">N/A</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="6" style="text-align:center; color:#6b7280;">No books found.</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %} 

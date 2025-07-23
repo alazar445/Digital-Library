@@ -6,6 +6,8 @@ from django.contrib.auth import logout
 
 from django.http import HttpResponseForbidden
 from functools import wraps
+from .models import Book
+from django.db import models
 
 def admin_required(view_func):
     @wraps(view_func)
@@ -67,3 +69,17 @@ def add_book(request):
     else:
         form = BookForm()
     return render(request, 'custom_admin/add_book.html', {'form': form})
+
+
+@admin_required
+def display_books(request):
+    search_query = request.GET.get('q', '').strip()
+    books = Book.objects.all()
+    if search_query:
+        books = books.filter(
+            models.Q(title__icontains=search_query) |
+            models.Q(author__icontains=search_query) |
+            models.Q(genre__icontains=search_query) |
+            models.Q(language__icontains=search_query)
+        )
+    return render(request, 'custom_admin/display_books.html', {'books': books, 'search_query': search_query})
