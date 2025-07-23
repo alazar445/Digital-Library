@@ -120,3 +120,36 @@ class CustomAdminTests(TestCase):
         response = self.client.post(reverse('add_book'), data)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'This field is required')
+
+    # ------------------- UNIT TESTS FOR DISPLAY BOOKS VIEW -------------------
+    def test_display_books_requires_admin(self):
+        # Not logged in
+        response = self.client.get(reverse('display_books'))
+        self.assertEqual(response.status_code, 403)
+        # Logged in as normal user
+        self.client.login(username='user', password='userpass')
+        response = self.client.get(reverse('display_books'))
+        self.assertEqual(response.status_code, 403)
+        # Logged in as admin
+        self.client.login(username='admin', password='adminpass')
+        response = self.client.get(reverse('display_books'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Books')
+
+    def test_display_books_shows_books(self):
+        self.client.login(username='admin', password='adminpass')
+        Book.objects.create(
+            title='Book 1', author='Author 1', publication_date='2024-01-01',
+            isbn='1111111111111', genre='Genre1', language='EN'
+        )
+        Book.objects.create(
+            title='Book 2', author='Author 2', publication_date='2024-01-02',
+            isbn='2222222222222', genre='Genre2', language='FR'
+        )
+        response = self.client.get(reverse('display_books'))
+        self.assertContains(response, 'Book 1')
+        self.assertContains(response, 'Book 2')
+        self.assertContains(response, 'Author 1')
+        self.assertContains(response, 'Author 2')
+        self.assertContains(response, 'Genre1')
+        self.assertContains(response, 'Genre2')
